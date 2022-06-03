@@ -8,15 +8,15 @@ import "@openzeppelin/contracts@4.6.0/utils/Counters.sol";
 
 contract BRIGHT is ERC721, ERC721Enumerable, ERC721URIStorage {
     using Counters for Counters.Counter;
+    uint256 MAX_SUPPLY = 10000;
 
     Counters.Counter private _tokenIdCounter;
-    uint256 MAX_SUPPLY = 8888;
 
-    constructor() ERC721("BRIGHT", "BRT") {}
+    constructor() ERC721("ALCHEMY", "ALCH") {}
 
     function safeMint(address to, string memory uri) public {
-        require(_tokenIdCounter.current() <= MAX_SUPPLY, "I'm sorry we reached the cap");
         uint256 tokenId = _tokenIdCounter.current();
+        require(tokenId <= MAX_SUPPLY, "All NFTs have been minted");
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
